@@ -1,3 +1,4 @@
+require 'puppet/util/inifile'
 require 'puppet'
 require 'pathname'
 require 'puppet/type/x509_cert'
@@ -11,7 +12,10 @@ describe 'The openssl provider for the x509_cert type' do
 
   context 'when not forcing key' do
     it 'exists? should return true if certificate exists and is synced' do
+      File.stubs(:read)
       Pathname.any_instance.expects(:exist?).returns(true)
+      c = OpenSSL::X509::Certificate.new # Fake certificate for mocking
+      OpenSSL::X509::Certificate.stubs(:new).returns(c)
       expect(subject.exists?).to eq(true)
     end
 

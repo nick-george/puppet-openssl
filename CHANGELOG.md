@@ -1,3 +1,56 @@
+## 2017-04-18 - Release 1.10.0
+
+- Increase default keysize to 2048bit (#80)
+- Add fastmode (#80)
+- Add definitions to export PEM cert/key from PKCS12 container (#85)
+- Remove pe requirement
+- Use Data Types (#87)
+
+## 2017-01-10 - Release 1.9.0
+
+- Add $openssl::packages::package_name parameter (fix #69)
+- Add test for dh_param (fix #64)
+- Ensure authentication is a symbol (fix #72)
+- Add openssl::certificates class (fix #77)
+- Handle refresh for x509_cert and x509_request (fix #75, fix #71)
+- Check if there are matches in openssl_version() before returning (#74)
+- Deprecate Puppet 3 compatibility
+- Update test framework
+
+## 2016-08-19 - Release 1.8.2
+
+- Fix unit tests
+- Announce support of Debian 8, Ubuntu 16.04 and RedHat 7 in metadata.json
+
+## 2016-08-19 - Release 1.8.1
+
+- Fix error "failure to load inifile" resulting in failed Puppet run (issue #63)
+
+## 2016-08-18 - Release 1.8.0
+
+- Fix validation of the size parameter (fix #70, fix #58)
+- Add argument key_size to openssl::certificate::x509 (fix #55)
+
+## 2016-03-30 - Release 1.7.1
+
+- Fix false parsing of IPAddress field (issue #61)
+- Fix openssl_version fact on RedHat-based OSes (issue #66, fixes #62 and #65)
+
+## 2016-03-18 - Release 1.7.0
+
+- Add openssl_version fact (issue #60, fix #57)
+- Various fixes to tests
+
+## 2016-02-22 - Release 1.6.1
+
+- Fix failure to load inifile (issue #56)
+
+## 2016-02-18 - Release 1.6.0
+
+- Change certificate existence logic (issue #51)
+- Add dhparam type and provider (issue #53)
+- Fix unit tests for Puppet 4
+
 ## 2015-11-17 - Release 1.5.1
 
 Use ensure_package for ca-certificate

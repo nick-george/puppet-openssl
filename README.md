@@ -26,11 +26,52 @@ class { '::openssl':
 }
 ```
 
+Create certificates (see the x509 defined type):
+
+```puppet
+class { '::openssl::certificates':
+  x509_certs => { '/path/to/certificate.crt' => { ensure      => 'present',
+                                                  password    => 'j(D$',
+                                                  template    => '/other/path/to/template.cnf',
+                                                  private_key => '/there/is/my/private.key',
+                                                  days        => 4536,
+                                                  force       => false,},
+                  '/a/other/certificate.crt' => { ensure      => 'present', },
+                }
+}
+```
+
+Specify openssl and compat package
+
+```puppet
+class { '::openssl':
+  package_name  => ['openssl', 'openssl-compat', ],
+}
+```
+
 ## Types and providers
 
 This module provides three types and associated providers to manage SSL keys and certificates.
 
 In every case, not providing the password (or setting it to _undef_, which is the default) means that __the private key won't be encrypted__ with any symmetric cipher so __it is completely unprotected__.
+
+### dhparam
+
+This type allows to generate Diffie Hellman parameters.
+
+Simple usage:
+
+```puppet
+dhparam { '/path/to/dhparam.pem': }
+```
+
+Advanced options:
+
+```puppet
+dhparam { '/path/to/dhparam.pem':
+  size => 2048,
+}
+```
 
 ### ssl\_pkey
 
@@ -71,6 +112,7 @@ x509_cert { '/path/to/certificate.crt':
   private_key => '/there/is/my/private.key',
   days        => 4536,
   force       => false,
+  subscribe   => '/other/path/to/template.cnf',
 }
 ```
 
@@ -93,6 +135,7 @@ x509_request { '/path/to/request.csr':
   template    => '/other/path/to/template.cnf',
   private_key => '/there/is/my/private.key',
   force       => false,
+  subscribe   => '/other/path/to/template.cnf',
 }
 ```
 
@@ -165,6 +208,67 @@ This definition generates a self signed certificate to be used as a certificate 
     days          => 365*20,
   }
 
+### openssl::export::pem_cert
+
+This definition exports PEM certificates from a pkcs12 container:
+
+```puppet
+openssl::export::pem_cert { 'foo':
+  ensure   => 'present',
+  pfx_cert => '/here/is/my/certstore.pfx',
+  pem_cert => '/here/is/my/cert.pem',
+  in_pass  => 'my_pkcs12_password',
+}
+```
+
+### openssl::export::pem_key
+
+This definition exports PEM key from a pkcs12 container:
+
+```puppet
+openssl::export::pem_key { 'foo':
+  ensure   => 'present',
+  pfx_cert => '/here/is/my/certstore.pfx',
+  pem_key  => '/here/is/my/private.key',
+  in_pass  => 'my_pkcs12_password',
+  out_pass => 'my_pkey_password',
+}
+```
+
+### openssl::dhparam
+
+This definition creates a dhparam PEM file:
+
+
+Simple usage:
+
+```puppet
+openssl::dhparam { '/path/to/dhparam.pem': }
+```
+
+which is equivalent to:
+
+```puppet
+openssl::dhparam { '/path/to/dhparam.pem':
+  ensure => 'present',
+  size   => 512,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0644',
+}
+```
+
+Advanced usage:
+
+```puppet
+openssl::dhparam { '/path/to/dhparam.pem':
+  ensure => 'present',
+  size   => 2048,
+  owner  => 'www-data',
+  group  => 'adm',
+  mode   => '0640',
+}
+```
 
 ## Contributing
 

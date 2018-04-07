@@ -1,6 +1,6 @@
 {
   "name": "camptocamp-openssl",
-  "version": "1.5.1",
+  "version": "1.10.0",
   "author": "Camptocamp",
   "summary": "Camptocamp OpenSSL Module",
   "license": "Apache-2.0",
@@ -16,12 +16,8 @@
   ],
   "requirements": [
     {
-      "name": "pe",
-      "version_requirement": "3.x"
-    },
-    {
       "name": "puppet",
-      "version_requirement": "3.x"
+      "version_requirement": "4.x"
     }
   ],
   "operatingsystem_support": [
@@ -29,21 +25,24 @@
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "12.04",
-        "14.04"
+        "14.04",
+        "16.04"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "5",
-        "6"
+        "6",
+        "7"
       ]
     }
   ]
