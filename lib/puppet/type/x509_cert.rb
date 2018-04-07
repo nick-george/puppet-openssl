@@ -78,12 +78,12 @@ Puppet::Type.newtype(:x509_cert) do
     end
   end
 
-  newparam(:server, :boolean => true) do
+  newparam(:server_only, :boolean => true) do
     desc "If true, will generate a server only certificate"
     defaultto(false)
   end
 
-  newparam(:client, :boolean => true) do
+  newparam(:client_only, :boolean => true) do
     desc "If true, will generate a client only certificate"
     defaultto(false)
   end
