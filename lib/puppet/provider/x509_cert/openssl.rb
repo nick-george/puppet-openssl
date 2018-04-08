@@ -72,6 +72,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
         '-batch',
         '-in', resource[:request],
       ]
+      options << ['-config', resource[:authority_cnf]]
     else
       options = [
         'req',
@@ -80,6 +81,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
       ]
 
       options << '-x509' if resource[:ca]
+      options << ['-config', resource[:template]]
 
       if resource[:password]
         options << "-passin pass:#{resource[:password]}"
@@ -88,7 +90,6 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
       end
     end
 
-    options << ['-config', resource[:template]]
     options << ['-out', resource[:path]]
     options << ['-extensions', "req_ext",] if resource[:req_ext] != :false
 
