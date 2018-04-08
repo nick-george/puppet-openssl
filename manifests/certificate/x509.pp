@@ -141,6 +141,7 @@ define openssl::certificate::x509(
       req_ext       => $req_ext,
       force         => $force,
       authority_cnf => $authority_cnf,
+      request       => $_csr,
     }
   }
   else {
