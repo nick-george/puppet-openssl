@@ -70,7 +70,7 @@ Puppet::Type.newtype(:x509_cert) do
 
   newparam(:authority_cnf) do
     desc 'The CA configuration template to use when signing certificates'
-    defaultto(undef)
+  end
 
   newparam(:request) do
     desc 'The certificate signing request to use'
