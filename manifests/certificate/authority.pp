@@ -123,14 +123,14 @@ define openssl::certificate::authority (
     group   => $group,
     mode    => '0700',
   } ->
-  ssl_pkey { "${pki_dir}/private/${name}_key.key": 
+  ssl_pkey { "${pki_dir}/private/${name}_key.pem": 
     ensure => present,
   } ~>
-  x509_cert { "${pki_dir}/certs/${name}_cert.crt":
+  x509_cert { "${pki_dir}/certs/${name}_cert.pem":
     ensure      => present,
     ca          => true,
     template    => "${pki_dir}/${name}.cnf",
-    private_key => "${pki_dir}/private/${name}_key.key",
+    private_key => "${pki_dir}/private/${name}_key.pem",
     force       => $force,
     req_ext     => false,
   }
@@ -141,13 +141,13 @@ define openssl::certificate::authority (
     owner   => $owner,
     group   => $group,
     mode    => '0600',
-    require => Ssl_pkey["${pki_dir}/private/${name}_key.key"],
+    require => Ssl_pkey["${pki_dir}/private/${name}_key.pem"],
   }
 
   file { "${pki_dir}/${name}_cert.crt":
     ensure  => $ensure,
     owner   => $owner,
     group   => $group,
-    require => X509_cert["${pki_dir}/certs/${name}_cert.crt"],
+    require => X509_cert["${pki_dir}/certs/${name}_cert.pem"],
   }
 }
