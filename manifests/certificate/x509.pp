@@ -99,6 +99,8 @@ define openssl::certificate::x509(
   String                         $cnf_tpl = 'openssl/cert.cnf.erb',
   Optional[Boolean]              $sign_cert = false,
   Optional[String]               $authority_cnf = undef,
+  Optional[Boolean]              $client_only = false,
+  Optional[Boolean]              $server_only = false,
   ) {
 
   $_key_owner = pick($key_owner, $owner)
@@ -142,7 +144,8 @@ define openssl::certificate::x509(
       force         => $force,
       authority_cnf => $authority_cnf,
       request       => $_csr,
-      client_only   => true,
+      client_only   => $client_only,
+      server_only   => $server_only,
     }
   }
   else {
