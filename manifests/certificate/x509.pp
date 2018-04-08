@@ -123,7 +123,7 @@ define openssl::certificate::x509(
     password => $password,
     size     => $key_size,
   }
-  if $sign_certificate {
+  if $sign_cert {
     x509_cert { $_crt:
       ensure      => $ensure,
       template    => $_cnf,
