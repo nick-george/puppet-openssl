@@ -97,6 +97,8 @@ define openssl::certificate::x509(
   Optional[String]               $password = undef,
   Boolean                        $force = true,
   String                         $cnf_tpl = 'openssl/cert.cnf.erb',
+  Optional[Boolean]              $sign_certificate = false,
+  Optional[String]               $authority = undef,
   ) {
 
   $_key_owner = pick($key_owner, $owner)
@@ -116,28 +118,39 @@ define openssl::certificate::x509(
     $req_ext = false
   }
 
-  file { $_cnf:
-    ensure  => $ensure,
-    owner   => $owner,
-    group   => $group,
-    content => template($cnf_tpl),
-  }
-
   ssl_pkey { $_key:
     ensure   => $ensure,
     password => $password,
     size     => $key_size,
   }
-
-  x509_cert { $_crt:
-    ensure      => $ensure,
-    template    => $_cnf,
-    private_key => $_key,
-    days        => $days,
-    password    => $password,
-    req_ext     => $req_ext,
-    force       => $force,
-    require     => File[$_cnf],
+  if $sign_certificate {
+    x509_cert { $_crt:
+      ensure      => $ensure,
+      template    => $_cnf,
+      private_key => $_key,
+      days        => $days,
+      password    => $password,
+      req_ext     => $req_ext,
+      force       => $force,
+    }
+  }
+  else {
+    file { $_cnf:
+      ensure  => $ensure,
+      owner   => $owner,
+      group   => $group,
+      content => template($cnf_tpl),
+    }
+    x509_cert { $_crt:
+      ensure      => $ensure,
+      template    => $_cnf,
+      private_key => $_key,
+      days        => $days,
+      password    => $password,
+      req_ext     => $req_ext,
+      force       => $force,
+      require     => File[$_cnf],
+    }
   }
 
   x509_request { $_csr:

@@ -199,12 +199,12 @@ This definition generates a self signed certificate to be used as a certificate 
 
   openssl::certificate::authority { 'ca':
     cnf_tpl       => 'my_module/openssl.cnf.erb',
-    base_dir      => '/etc/pki/mymodule,
+    pki_dir       => '/etc/pki/mymodule,
     country       => 'CH',
     state         => 'Here',
     locality      => 'Myplace',
     organization  => 'Example.com',
-    commonname    => $fqdn,
+    common_name   => $fqdn,
     days          => 365*20,
   }
 
