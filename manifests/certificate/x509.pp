@@ -97,8 +97,8 @@ define openssl::certificate::x509(
   Optional[String]               $password = undef,
   Boolean                        $force = true,
   String                         $cnf_tpl = 'openssl/cert.cnf.erb',
-  Optional[Boolean]              $sign_certificate = false,
-  Optional[String]               $authority = undef,
+  Optional[Boolean]              $sign_cert = false,
+#  Optional[String]               $authority = undef,
   ) {
 
   $_key_owner = pick($key_owner, $owner)
