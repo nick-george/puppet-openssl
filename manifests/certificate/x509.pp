@@ -116,6 +116,7 @@ define openssl::certificate::x509(
 
   if !empty($altnames) {
     $req_ext = true
+    notify{"The DNS altnames are $altnames":}
   } else {
     $req_ext = false
   }
