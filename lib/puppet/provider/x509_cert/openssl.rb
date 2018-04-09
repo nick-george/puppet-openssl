@@ -99,6 +99,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
       options << ['-extensions', 'ssl_client']
     end
 
+    Puppet.info("Running openssl with options '#{options}'")
     openssl(options)
   end
 
