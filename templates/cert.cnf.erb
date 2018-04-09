@@ -37,6 +37,6 @@ emailAddress                    = <%= @email %>
 
 <% unless @altnames.empty? -%>
 [ req_ext ]
-subjectAltName = "<%= @altnames.each {|i| "DNS: #{i}" }.join(', ') -%>"
+subjectAltName = "<%= @altnames.collect {|i| "DNS: #{i}" }.join(', ') -%>"
 <% end %>
 
