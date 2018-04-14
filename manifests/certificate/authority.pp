@@ -136,7 +136,7 @@ define openssl::certificate::authority (
   }
 
   # Set owner of all files
-  file { "${pki_dir}/${name}_key.key":
+  file { "${pki_dir}/private/${name}_key.pem":
     ensure  => $ensure,
     owner   => $owner,
     group   => $group,
@@ -144,7 +144,7 @@ define openssl::certificate::authority (
     require => Ssl_pkey["${pki_dir}/private/${name}_key.pem"],
   }
 
-  file { "${pki_dir}/${name}_cert.crt":
+  file { "${pki_dir}/certs/${name}_cert.pem":
     ensure  => $ensure,
     owner   => $owner,
     group   => $group,
