@@ -83,6 +83,10 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
       options << '-x509' if resource[:ca]
       options << ['-config', resource[:template]]
 
+      if resource[:days]
+        options << "-days #{resource[:days]}"
+      end
+
       if resource[:password]
         options << "-passin pass:#{resource[:password]}"
       else
