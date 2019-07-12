@@ -67,7 +67,7 @@ define openssl::certificate::authority (
   validate_string($name)
   validate_string($country)
   validate_string($organization)
-  validate_string($commonname)
+  validate_string($common_name)
   validate_string($ensure)
   validate_string($state)
   validate_string($locality)
