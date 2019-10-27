@@ -97,8 +97,9 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
 
     options << ['-out', resource[:path]]
 
+    # NICKG, see templates/openssl.cnf.erb
     if resource[:server_only] and resource[:client_only]
-      options << ['-extensions', 'ssl_server,ssl_client']
+      options << ['-extensions', 'ssl_both'] 
     elsif resource[:client_only]
       options << ['-extensions', 'ssl_client']
     elsif resource[:server_only]

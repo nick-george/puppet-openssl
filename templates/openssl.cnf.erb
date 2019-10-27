@@ -80,3 +80,10 @@ nsCertType              = client
 keyUsage                = digitalSignature, keyEncipherment
 extendedKeyUsage        = clientAuth
 nsComment               = "OpenSSL Certificate for SSL Client"
+
+[ ssl_both ]
+basicConstraints        = CA:FALSE
+nsCertType              = client, server
+keyUsage                = digitalSignature, keyEncipherment
+extendedKeyUsage        = serverAutrh,nsSGC, msSGC, clientAuth
+nsComment               = "OpenSSL Certificate for SSL Server and Client"
