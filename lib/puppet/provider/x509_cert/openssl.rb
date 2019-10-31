@@ -101,9 +101,9 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
     if resource[:server_only] and resource[:client_only]
       options << ['-extensions', 'ssl_both'] 
     elsif resource[:client_only]
-      options << ['-extensions', 'clientAuth']
+      options << ['-extensions', 'ssl_client']
     elsif resource[:server_only]
-      options << ['-extensions', 'serverAuth']
+      options << ['-extensions', 'ssl_server']
     end
 
     Puppet.info("Running openssl with options '#{options}'")
