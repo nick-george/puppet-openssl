@@ -93,6 +93,7 @@ Puppet::Type.type(:x509_cert).provide(:openssl) do
         options << '-nodes'
       end
       options << ['-extensions', "req_ext",] if resource[:req_ext] != :false
+      options << ['-extensions', "v3_ca",] if resource[:ca]
     end
 
     options << ['-out', resource[:path]]
